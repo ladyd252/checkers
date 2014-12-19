@@ -72,6 +72,18 @@ class Board
 		@grid.flatten.compact
 	end
 
+	def board_empty?
+		all_pieces.empty?
+	end
+
+	def lost?(player_color)
+		player_pieces = all_pieces.select {|piece| piece.color == player_color}
+		player_pieces.all? do |piece| 
+			piece.single_jump_moves.empty? && piece.slide_moves.empty? 
+		end
+	end
+
+
 
 	def [](pos)
 		@grid[pos[0]][pos[1]] 
@@ -83,15 +95,15 @@ class Board
 
 end
 
-b = Board.new
-b.render
-b[[2,1]].perform_slide([3,0])
-b[[5,0]].perform_slide([4,1])
-b[[5,2]].perform_slide([4,3])
-b.render
-b[[5,6]].perform_slide([4,7])
-b[[6,5]].perform_slide([5,6])
-b[[7,4]].perform_slide([6,5])
-b.render
-b[[3,0]].perform_moves([[5,2], [7,4]])
-b.render
+# b = Board.new
+# b.render
+# b[[2,1]].perform_slide([3,0])
+# b[[5,0]].perform_slide([4,1])
+# b[[5,2]].perform_slide([4,3])
+# b.render
+# b[[5,6]].perform_slide([4,7])
+# b[[6,5]].perform_slide([5,6])
+# b[[7,4]].perform_slide([6,5])
+# b.render
+# b[[3,0]].perform_moves([[5,2], [7,4]])
+# b.render
